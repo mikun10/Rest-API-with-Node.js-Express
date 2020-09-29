@@ -21,7 +21,7 @@ app.use( (error,req,res,next) => {
     }
     // If no respond has sent yet
     res.status(error.code || 500);
-    res.json({messsage : error.messsage || 'An Unknown error has occured !'});
+    res.json({message : error.message || 'An Unknown error has occured !'});
 
 });
 
