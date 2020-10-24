@@ -1,13 +1,11 @@
-
-
-const uuid = require('uuid/v4')
+const { v4: uuidv4 } = require('uuid');
 const HttpError =require('../models/http-error');
  
  const DUMMY_PLACES =[
     {
-        id:'p1',
+        //  id: uuidv4(),
         title:"Empire State Building",
-        description:"One of the most famous skuy scraper in the world !",
+        description:"One of the most famous sky scraper in the world !",
         location:{
             lat:40.7484425,
             lng:73.986758
@@ -22,7 +20,7 @@ const HttpError =require('../models/http-error');
 const getPlaceById =(req,res,next)=>{
     const placeId = req.params.pid; // {pid : p1}
     const place = DUMMY_PLACES.find( p => {
-        return p.id === placeId;
+        return p;
     });
  
     if(! place){
@@ -55,21 +53,27 @@ const getPlaceById =(req,res,next)=>{
     const createPlace = (req,res,next) =>{
         const {title,description,coordinates,address,creator}=req.body; // Extracting data from the incomming request
 
-        const createdPlace ={
-            id : uuid(),
-            title,
-            description,
+        const createdPlace = {
+            id:uuidv4(),
+            title: title ,
+            description: description ,
             location: coordinates,
-            address,
-            creator
+            address: address,
+            creator: creator
         };
         DUMMY_PLACES.push(createdPlace); //unshift(createdPlace)
 
         res.status(201).json({place: createdPlace});
 
     };
+
+    
+
+
 exports.getPlaceById = getPlaceById;
+// exports.getAllPlaces = getPlaces
 exports.getPlaceByUserId = getPlaceByUserId;
 exports.createPlace = createPlace ;
 
 
+ 
